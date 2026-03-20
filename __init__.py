@@ -6,4 +6,4 @@
 #from .Propagator import *
 #from .Scheduler.SystemScheduler import SystemScheduler
 
-__version__ = '0.0.5'
+__version__ = '0.0.6'

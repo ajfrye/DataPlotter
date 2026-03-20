@@ -1,1 +1,1 @@
-from .ProcessorInterface import ProcessorInterface
+from .BufferIterator import BufferIterator
