@@ -1,7 +1,7 @@
 
 import numpy as np
 
-class SpacecraftNavigation:
+class NavigationBase:
     def __init__(self):
         """
         Declare system state variables required
@@ -9,7 +9,7 @@ class SpacecraftNavigation:
         """
         self.pos_ecef = None
         self.vel_ecef = None
-        self.event    = {}
+        self.acc_ecef = None
 
     def initialize(self):
         """
@@ -18,6 +18,7 @@ class SpacecraftNavigation:
         """
         self.pos_ecef = np.zeros(3)
         self.vel_ecef = np.zeros(3)
+        self.acc_ecef = np.zeros(3)
 
     def execute(self):
         pass
@@ -26,24 +27,15 @@ class SpacecraftNavigation:
         pass
 
     def update_derivatives(self, dt):
-        mu = 398600.4418 #km3/s2
+        pass
 
-        r = self.pos_ecef
-        v = self.vel_ecef
-        a = -mu / (np.linalg.norm(r)**3) * r
-
-        self.vel_ecef = a*dt + v
-        self.pos_ecef = a*dt*dt + v*dt + r
-
-    def set_state(self, posEcef, velEcef):
+    def set_state(self, posEcef, velEcef, accEcef):
         self.posEcef = posEcef
         self.velEcef = velEcef
+        self.accEcef = accEcef
 
     def get_pos(self):
         return self.pos_ecef
 
     def get_vel(self):
         return self.vel_ecef
-
-    def get_event(self):
-        return self.event

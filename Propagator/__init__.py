@@ -1,1 +1,1 @@
-from EulerMethod import EulerMethod
+from .EulerMethod import EulerMethod

@@ -3,6 +3,7 @@ class BufferIterator:
     def __init__(self):
         self.buffer     = []
         self.iterator   = iter(self.buffer)
+        self.events     = {}
 
     def initialize_objects(self):
         """
@@ -11,6 +12,19 @@ class BufferIterator:
         obj = self.get_next_object()
         while obj is not None:
             obj.initialize()
+            obj = self.get_next_object()
+
+    def execute_objects(self):
+        """
+        run execute on all objects in the buffer
+        and check for events
+        """
+        obj = self.get_next_object()
+        while obj is not None:
+            obj.execute()
+            event = obj.get_event()
+            if event is not None:
+                self.events.update(event)
             obj = self.get_next_object()
 
     def finalize_objects(self):
@@ -58,3 +72,12 @@ class BufferIterator:
             # reset iterator
             self.iterator = iter(self.buffer)
         return obj
+
+    def get_events_buffer(self):
+        """
+        Return buffer conataining all events that have occured
+        for all systems
+
+        A particular event may be used as termination criteria
+        """
+        return self.events
